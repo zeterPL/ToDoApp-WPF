@@ -10,7 +10,7 @@ namespace WPFProjekt.Services.Interfaces
 {
     public interface INoteService : IBaseService<Note>
     {
-        Task<IList<Note>> GetNotesByCategoryIdAsync(int categoryId);
-        Task<IList<Note>> GetNotesByPriorityAsync(Priority priority);
+        Task<ICollection<Note>> GetNotesByCategoryIdAsync(int categoryId);
+        Task<ICollection<Note>> GetNotesByPriorityAsync(Priority priority);
     }
 }

@@ -11,12 +11,12 @@ namespace WPFProjekt.Services
 {
     public class NotesService : BaseService<Note>, INoteService
     {
-        public Task<IList<Note>> GetNotesByCategoryIdAsync(int categoryId)
+        public Task<ICollection<Note>> GetNotesByCategoryIdAsync(int categoryId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IList<Note>> GetNotesByPriorityAsync(Priority priority)
+        public Task<ICollection<Note>> GetNotesByPriorityAsync(Priority priority)
         {
             throw new NotImplementedException();
         }
