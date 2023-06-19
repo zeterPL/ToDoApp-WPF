@@ -33,9 +33,11 @@ namespace WPFProjekt
         public MainWindow()
         {
             InitializeComponent();
-
+            
             GetAllNotes();          
         }
+
+
 
         public async void GetAllNotes()
         {
@@ -61,6 +63,13 @@ namespace WPFProjekt
             };
 
             await _noteService.AddAsync(newNote);
+            NotesListBox.ItemsSource = NotesList;
+        }
+
+        private async void DelNote(object slender, RoutedEventArgs e)
+        {
+            
+
         }
     }
 }
