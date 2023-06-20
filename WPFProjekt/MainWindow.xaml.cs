@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace WPFProjekt
         private readonly INoteService _noteService = new NotesService();
         private readonly ICategoryService _categoryService = new CategoryService();
 
-        public List<Note> NotesList { get; set; } = new List<Note>();
+        public ObservableCollection<Note> NotesList { get; set; } = new ObservableCollection<Note>();
 
         public MainWindow()
         {
@@ -41,7 +42,8 @@ namespace WPFProjekt
 
         public async void GetAllNotes()
         {
-            this.NotesList = (List<Note>)await _noteService.GetAllAsync();
+            var tmp = await _noteService.GetAllAsync();
+            this.NotesList = new ObservableCollection<Note>(tmp);
             NotesListBox.ItemsSource = NotesList;
         }
 
@@ -63,12 +65,19 @@ namespace WPFProjekt
             };
 
             await _noteService.AddAsync(newNote);
-            NotesListBox.ItemsSource = NotesList;
+            this.NotesList.Add(newNote);
+
+
         }
 
-        private async void DelNote(object slender, RoutedEventArgs e)
+        private void delNote(object sender, RoutedEventArgs e)
         {
+            this.NotesList.RemoveAt(0);
             
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
         }
     }

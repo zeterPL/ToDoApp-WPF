@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFProjekt"
         mc:Ignorable="d"
-        Title="ToDo!"  Icon="./assets/icon.ico" Height="450" Width="800">
+        Title="ToDo!"  Icon="./Resources/icon.ico" Height="700" Width="800">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -30,14 +30,14 @@
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
             <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderThickness" Value="0" />
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="1"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border"  Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                        <Border x:Name="border" CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
                             <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -66,15 +66,46 @@
     
     
     <!-- KOD APLIKACJI PONIZEJ -->
-    <Grid Background="#343a40">
+    <StackPanel Background="#343a40">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <ComboBox Margin="5" Foreground="#f5f5f5" Background="#343a40" FontWeight="Black" SelectionChanged="ComboBox_SelectionChanged">CATEGORY</ComboBox>
+            <Button Margin="5" Grid.Column="1" Background="#28a745" >Add new Category</Button>
+        </Grid>
+        
         <StackPanel>
-            <WrapPanel Margin="30,10,30,0">
+            <WrapPanel Margin="10,0">
                 <Button FontSize="25" Background="#343a40" Foreground="#28a745" Height="40" Width="40" VerticalAlignment="Center"  Click="AddNote" BorderThickness="0" >+</Button>
                 <TextBox Background="#343a40" Foreground="#9ea4a9" VerticalAlignment="Center" BorderThickness="0">Add new Task</TextBox>
+                <ComboBox Margin="10" Width="100">ASD</ComboBox>
             </WrapPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Grid.RowDefinitions/>
+                <Label  Grid.Column="0" Foreground="#f5f5f5">Sort by:</Label>
+                <Button Style="{DynamicResource ButtonAdd}" Grid.Column="1" Margin="10,0">Pryority</Button>
+                <Button Style="{DynamicResource ButtonAdd}" Grid.Column="2" Margin="10,0">A-Z</Button>
+                <Button Style="{DynamicResource ButtonAdd}" Grid.Column="3" Margin="10,0">Date</Button>
 
+                <TextBox Grid.Column="4" Margin="10,0" Background="#343a40" Foreground="#f5f5f5">Search</TextBox>
+            </Grid>
+            <Label Foreground="#f5f5f5" FontWeight="Black" >TODO</Label>
             <ListBox HorizontalContentAlignment="Stretch" Name="NotesListBox" Background="#343a40" BorderThickness="0" Foreground="#df4554" Padding="30,0">
-                <ListBox.ItemTemplate >
+
+
+                
+                <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -87,12 +118,15 @@
                             </Grid.RowDefinitions>
                             <CheckBox Grid.Column="0" HorizontalAlignment="Left"></CheckBox>
                             <TextBlock Grid.Column="1" Text= "{Binding Title}" Foreground="#f5f5f5" HorizontalAlignment="Center"></TextBlock>
-                            <Button Grid.Column="2" HorizontalAlignment="Right" Background="#df4554" Foreground="#343a40 ">delete</Button>
+                            <Button Grid.Column="2" HorizontalAlignment="Right" Background="#df4554" Foreground="#343a40" Click="delNote">
+                                <Image Height="20" Width="20" Source="./Resources/bin.png" />
+                            </Button>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <Label Foreground="#f5f5f5" FontWeight="Black">DONE</Label>
         </StackPanel>
-    </Grid>
+    </StackPanel>
     
 </Window>

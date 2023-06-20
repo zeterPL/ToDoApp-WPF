@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="assets\icon.ico" />
+    <None Remove="Resources\bin.png" />
+    <None Remove="Resources\icon.ico" />
+    <None Remove="Resources\search.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="assets\icon.ico" />
+    <Resource Include="Resources\bin.png" />
+    <Resource Include="Resources\icon.ico" />
+    <Resource Include="Resources\search.png" />
   </ItemGroup>
 
 </Project>
