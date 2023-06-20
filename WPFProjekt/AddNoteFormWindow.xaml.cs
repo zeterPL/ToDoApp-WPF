@@ -34,18 +34,14 @@ namespace WPFProjekt
             InitializeComponent();
 
             GetAllCategories();
-           
-            
+                    
         }
 
         public async void GetAllCategories()
         {
             Categories = (List<Category>)await _categoryService.GetAllAsync(); 
             CatComboBox.ItemsSource = Categories;
-            CatComboBox.SelectedIndex = 0;
-
-           
-
+            CatComboBox.SelectedIndex = 0;        
         }
 
         private async void AddNote(Note note)

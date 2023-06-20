@@ -68,7 +68,7 @@ namespace WPFProjekt
             this.NotesList.Add(newNote);
         }
         */
-        private async void AddNote(object sender, RoutedEventArgs e)
+        private void AddNote(object sender, RoutedEventArgs e)
         {
             AddNoteFormWindow w = new AddNoteFormWindow();
             w.Owner = this;
@@ -123,8 +123,13 @@ namespace WPFProjekt
             GetAllNotes();
         }
 
-
-
+        private void CategoriesBtnClick(object sender, RoutedEventArgs e)
+        {
+            CategoriesWindow w = new CategoriesWindow();
+            w.Owner = this;
+            w.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            w.ShowDialog();
+        }
     }
 
     

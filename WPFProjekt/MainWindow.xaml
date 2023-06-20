@@ -76,7 +76,7 @@
             <!--
             <ComboBox Margin="5" Foreground="#f5f5f5" Background="#343a40" FontWeight="Black" SelectionChanged="ComboBox_SelectionChanged">CATEGORY</ComboBox>
             -->
-            <Button Margin="5" Grid.Column="1" Background="#28a745" >Add new Category</Button>
+            <Button Click="CategoriesBtnClick" Margin="5" Grid.Column="1" Background="#28a745" >Manage categories</Button>
       
             </Grid>
         
@@ -122,9 +122,6 @@
             </Grid>
             <Label Foreground="#f5f5f5" FontWeight="Black" >TODO</Label>
             <ListBox HorizontalContentAlignment="Stretch" Name="NotesListBox" Background="#343a40" BorderThickness="0" Foreground="#df4554" Padding="30,0">
-
-
-                
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
