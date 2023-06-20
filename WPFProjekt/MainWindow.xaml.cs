@@ -47,7 +47,7 @@ namespace WPFProjekt
             NotesListBox.ItemsSource = NotesList;
         }
 
-
+        /*
         //Test dodawania
         private async void AddNote(object sender, RoutedEventArgs e)
         {
@@ -66,8 +66,16 @@ namespace WPFProjekt
 
             await _noteService.AddAsync(newNote);
             this.NotesList.Add(newNote);
+        }
+        */
+        private async void AddNote(object sender, RoutedEventArgs e)
+        {
+            AddNoteFormWindow w = new AddNoteFormWindow();
+            w.Owner = this;
+            w.WindowStartupLocation = WindowStartupLocation.CenterOwner;       
+            w.ShowDialog();
 
-
+            GetAllNotes();
         }
 
         private void delNote(object sender, RoutedEventArgs e)
