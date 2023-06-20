@@ -90,15 +90,31 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 
                 <Grid.RowDefinitions/>
                 <Label  Grid.Column="0" Foreground="#f5f5f5">Sort by:</Label>
-                <Button Style="{DynamicResource ButtonAdd}" Grid.Column="1" Margin="10,0">Pryority</Button>
-                <Button Style="{DynamicResource ButtonAdd}" Grid.Column="2" Margin="10,0">A-Z</Button>
-                <Button Style="{DynamicResource ButtonAdd}" Grid.Column="3" Margin="10,0">Date</Button>
+                <Button Style="{DynamicResource ButtonAdd}" Grid.Column="1" Margin="10,0" Click="SortByPriority" >Priority</Button>
+                <Button Style="{DynamicResource ButtonAdd}" Grid.Column="2" Margin="10,0" Click="SortByTitle">A-Z</Button>
+                <Button Style="{DynamicResource ButtonAdd}" Grid.Column="3" Margin="10,0" Click="ResetFilters">Reset filters</Button>
 
-                <TextBox Grid.Column="4" Margin="10,0" Background="#343a40" Foreground="#f5f5f5">Search</TextBox>
+                <TextBox x:Name="SearchTextBox" Grid.Column="4" Margin="10,0" Background="#343a40" Foreground="#f5f5f5"/>
+                <!--Placeholder-->
+                <TextBlock Grid.Column="4" IsHitTestVisible="False" Text="Search" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0" Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=SearchTextBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+            <Button Grid.Column="5" Margin="5,0" Click="SearchButtonClick">Search</Button>
             </Grid>
             <Label Foreground="#f5f5f5" FontWeight="Black" >TODO</Label>
             <ListBox HorizontalContentAlignment="Stretch" Name="NotesListBox" Background="#343a40" BorderThickness="0" Foreground="#df4554" Padding="30,0">

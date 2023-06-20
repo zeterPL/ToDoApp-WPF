@@ -58,9 +58,9 @@ namespace WPFProjekt
 
             var newNote = new Note
             {
-                Title = "test",
+                Title = "Note",
                 Content = "To jest testowa notatka",
-                Priority = Priority.Normal,
+                Priority = Priority.Low,
                 Category = cat,
             };
 
@@ -80,5 +80,44 @@ namespace WPFProjekt
         {
 
         }
+
+        public void SortByPriority(object sender, RoutedEventArgs e)
+        {
+            var tmp = NotesList.OrderBy(t => t.Priority).ToList();
+            NotesList = new ObservableCollection<Note>(tmp);
+            NotesListBox.ItemsSource = NotesList;
+        }
+
+        public void SortByTitle(object sender, RoutedEventArgs e)
+        {
+            var tmp = NotesList.OrderBy(t => t.Title).ToList();
+            NotesList = new ObservableCollection<Note>(tmp);
+            NotesListBox.ItemsSource = NotesList;
+        }
+
+        public void SearchButtonClick(object sender, RoutedEventArgs e)
+        {
+            if(SearchTextBox.Text != "")
+            {
+                var tmp = NotesList.Where(t => t.Title.Contains(SearchTextBox.Text)).ToList();
+                NotesList = new ObservableCollection<Note>(tmp);
+                NotesListBox.ItemsSource = NotesList;
+            }
+            else if(SearchTextBox.Text == "")
+            {
+                GetAllNotes();
+            }
+            
+        }
+
+        public void ResetFilters(object sender, RoutedEventArgs e)
+        {
+            GetAllNotes();
+        }
+
+
+
     }
+
+    
 }
