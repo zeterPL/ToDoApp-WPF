@@ -15,6 +15,7 @@ using WPFProjekt.Services.Interfaces;
 using WPFProjekt.Services;
 using System.Collections.ObjectModel;
 using WPFProjekt.Models;
+using WPFProjekt.Models.Enums;
 
 namespace WPFProjekt
 {
@@ -33,16 +34,45 @@ namespace WPFProjekt
             InitializeComponent();
 
             GetAllCategories();
+           
+            
         }
 
         public async void GetAllCategories()
         {
             Categories = (List<Category>)await _categoryService.GetAllAsync(); 
             CatComboBox.ItemsSource = Categories;
+            CatComboBox.SelectedIndex = 0;
+
+           
+
+        }
+
+        private async void AddNote(Note note)
+        {
+            await _noteService.AddAsync(note);
         }
 
         private void AddNote(object sender, RoutedEventArgs e)
         {
+            string title = TitleTextBlock.Text;
+            string content = DescriptionTextBox.Text;
+            Category cat = (Category)CatComboBox.SelectedItem;
+            Priority pr = (Priority)PrioritySlider.Value;
+
+            
+
+            Note note = new Note
+            {
+                Title = title,
+                Content = content,
+                Priority = pr,
+                CategoryId = cat.Id,
+            };
+
+            AddNote(note);
+
+            this.Close();
 
         }
     }
