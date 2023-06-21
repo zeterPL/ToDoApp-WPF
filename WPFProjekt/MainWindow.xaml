@@ -66,84 +66,104 @@
     
     
     <!-- KOD APLIKACJI PONIZEJ -->
-    <StackPanel Background="#343a40">
+    <StackPanel Background="#36393e">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
-            
-            <!--
-            <ComboBox Margin="5" Foreground="#f5f5f5" Background="#343a40" FontWeight="Black" SelectionChanged="ComboBox_SelectionChanged">CATEGORY</ComboBox>
-            -->
-            <Button Click="CategoriesBtnClick" Margin="5" Grid.Column="1" Background="#28a745" >Manage categories</Button>
-      
-            </Grid>
-        
-        <StackPanel>
-            <WrapPanel Margin="10,0">
-                <Button FontSize="25" Background="#343a40" Foreground="#28a745" Height="40" Width="40" VerticalAlignment="Center"  Click="AddNote" BorderThickness="0" >+</Button>
-                <TextBox Background="#343a40" Foreground="#9ea4a9" VerticalAlignment="Center" BorderThickness="0">Add new Task</TextBox>
-                <!--
-                <ComboBox Margin="10" Width="100">ASD</ComboBox> -->
-            </WrapPanel>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <StackPanel>
+                <Button Height="30" Style="{DynamicResource ButtonAdd}" Click="CategoriesBtnClick" Margin="10" Grid.Column="1" Background="#28a745" >Manage categories</Button>
+                <ListBox HorizontalContentAlignment="Stretch" Name="CategoriesListBox" Background="#36393e" BorderThickness="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Column="0" Text= "{Binding Name}" Foreground="#f5f5f5" HorizontalAlignment="Left"></TextBlock>
+                                
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+
+
+                <Label FontSize="20" Margin="5" Foreground="#f5f5f5"  FontWeight="Black">Kategoria 1</Label>
+
+
+                    
                 
-                <Grid.RowDefinitions/>
-                <Label  Grid.Column="0" Foreground="#f5f5f5">Sort by:</Label>
-                <Button Style="{DynamicResource ButtonAdd}" Grid.Column="1" Margin="10,0" Click="SortByPriority" >Priority</Button>
-                <Button Style="{DynamicResource ButtonAdd}" Grid.Column="2" Margin="10,0" Click="SortByTitle">A-Z</Button>
-                <Button Style="{DynamicResource ButtonAdd}" Grid.Column="3" Margin="10,0" Click="ResetFilters">Reset filters</Button>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
 
-                <TextBox x:Name="SearchTextBox" Grid.Column="4" Margin="10,0" Background="#343a40" Foreground="#f5f5f5"/>
-                <!--Placeholder-->
-                <TextBlock Grid.Column="4" IsHitTestVisible="False" Text="Search" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0" Foreground="DarkGray">
-                    <TextBlock.Style>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=SearchTextBox}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                    <Grid.RowDefinitions/>
+                    <Label  Grid.Column="0" Foreground="#f5f5f5">Sort by:</Label>
+                    <Button Height="30" Style="{DynamicResource ButtonAdd}" Grid.Column="1" Margin="10,0" Click="SortByPriority" Background="#424549" Foreground="#f5f5f5" >Priority</Button>
+                    <Button Height="30" Style="{DynamicResource ButtonAdd}" Grid.Column="2" Margin="10,0" Click="SortByTitle"  Background="#424549" Foreground="#f5f5f5">A-Z</Button>
+                    <Button  Style="{DynamicResource ButtonAdd}" Grid.Column="3" Margin="10,0" Click="ResetFilters"  Background="#424549" Foreground="#f5f5f5">Reset filters</Button>
 
-            <Button Grid.Column="5" Margin="5,0" Click="SearchButtonClick">Search</Button>
-            </Grid>
-            <Label Foreground="#f5f5f5" FontWeight="Black" >TODO</Label>
-            <ListBox HorizontalContentAlignment="Stretch" Name="NotesListBox" Background="#343a40" BorderThickness="0" Foreground="#df4554" Padding="30,0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="40"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <CheckBox Grid.Column="0" HorizontalAlignment="Left"></CheckBox>
-                            <TextBlock Grid.Column="1" Text= "{Binding Title}" Foreground="#f5f5f5" HorizontalAlignment="Center"></TextBlock>
-                            <Button Grid.Column="2" HorizontalAlignment="Right" Background="#df4554" Foreground="#343a40" Click="delNote">
-                                <Image Height="20" Width="20" Source="./Resources/bin.png" />
-                            </Button>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Label Foreground="#f5f5f5" FontWeight="Black">DONE</Label>
-        </StackPanel>
+                    <TextBox  x:Name="SearchTextBox" Grid.Column="4" Margin="10,0" Background="#424549" Foreground="#f5f5f5" BorderThickness="0"/>
+                    <!--Placeholder-->
+                    <TextBlock Grid.Column="4" IsHitTestVisible="False" Text="Search" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0" Foreground="DarkGray">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchTextBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <Button Height="30"  Style="{DynamicResource ButtonAdd}" Grid.Column="5" Margin="5,0,10,0" Click="SearchButtonClick"  Background="#fee75c" Foreground="#1e2124">Search</Button>
+                </Grid>
+                <Label Foreground="#f5f5f5" FontWeight="Black" >TODO</Label>
+                <Button Style="{DynamicResource ButtonAdd}" Height="30" Width="200" Foreground="Black" Background="#28a745"  VerticalAlignment="Center"  Click="AddNote" BorderThickness="0" Margin="0,0,0,5">+Add new Task</Button>
+                <ListBox HorizontalContentAlignment="Stretch" Name="NotesListBox" Background="#36393e" BorderThickness="0" Padding="30,0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <CheckBox Grid.Column="0" HorizontalAlignment="Left"></CheckBox>
+                                <TextBlock Grid.Column="1" Text= "{Binding Title}" Foreground="#f5f5f5" HorizontalAlignment="Center"></TextBlock>
+                                <Button Grid.Column="2" HorizontalAlignment="Right" Background="#df4554" Foreground="#343a40" Click="delNote">
+                                    <Image Height="20" Width="20" Source="./Resources/bin.png" />
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Label Foreground="#f5f5f5" FontWeight="Black">DONE</Label>
+            </StackPanel>
+        </Grid>
+       
+        
+        
+        
     </StackPanel>
     
 </Window>

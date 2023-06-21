@@ -29,13 +29,15 @@ namespace WPFProjekt
         private readonly INoteService _noteService = new NotesService();
         private readonly ICategoryService _categoryService = new CategoryService();
 
+        public ObservableCollection<Category> Categories;
         public ObservableCollection<Note> NotesList { get; set; } = new ObservableCollection<Note>();
 
         public MainWindow()
         {
             InitializeComponent();
             
-            GetAllNotes();          
+            GetAllNotes();
+            GetAllCategories();
         }
 
 
@@ -45,6 +47,13 @@ namespace WPFProjekt
             var tmp = await _noteService.GetAllAsync();
             this.NotesList = new ObservableCollection<Note>(tmp);
             NotesListBox.ItemsSource = NotesList;
+        }
+        private async void GetAllCategories()
+        {
+            var tmp = await _categoryService.GetAllAsync();
+            Categories = new ObservableCollection<Category>(tmp);
+
+            CategoriesListBox.ItemsSource = Categories;
         }
 
         /*
