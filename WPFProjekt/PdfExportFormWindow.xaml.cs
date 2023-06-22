@@ -137,9 +137,9 @@ namespace WPFProjekt
 
                 foreach (Note note in notes)
                 {                  
-                    output += $"<div> <b>{note.Title}</b> <br/> Priority: {note.Priority} <br/> Content: <br/> {note.Content} </div> <br/>";
-                    if (note.IsDone) output += "<span style=\"color: LightGreen\">Done</span> <br/>";
-                    else output += "<span style=\"color: red\">Not done</span> <br/>";
+                    output += $"<div> <b>{note.Title}</b> <br/> Priority: {note.Priority} <br/> Content: <br/> {note.Content} </div> ";
+                    if (note.IsDone) output += "<h5 style=\"color: LightGreen\">Done</h5> <br/>";
+                    else output += "<h5 style=\"color: red\">Not done</h5> <br/>";
                 }
             }
             output += "<style>\r\n#title {\r\n\ttext-align: center;\r\n}\r\n</style>";
