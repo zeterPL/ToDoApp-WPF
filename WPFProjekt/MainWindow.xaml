@@ -19,6 +19,7 @@
         <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
         <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
         <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Foreground" Color="#FF838383"/>
         <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
         <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
         <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
@@ -47,6 +48,7 @@
                             <Trigger Property="IsMouseOver" Value="true">
                                 <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
                                 <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.MouseOver.Foreground}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
                                 <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
@@ -87,6 +89,7 @@
                                 </Grid.RowDefinitions>
 
                                 <TextBlock Grid.Column="0" Text= "{Binding Name}" Foreground="#f5f5f5" HorizontalAlignment="Left"></TextBlock>
+                                <Button Grid.Column="1" Click="GetByCategory">Show</Button>
                                 
                             </Grid>
                         </DataTemplate>
@@ -96,11 +99,11 @@
             <StackPanel Grid.Column="1">
 
 
-                <Label FontSize="20" Margin="5" Foreground="#f5f5f5"  FontWeight="Black">Kategoria 1</Label>
+                <TextBlock x:Name="SelectedCategoryTextBlock" FontSize="20" Margin="5" Foreground="#f5f5f5"  FontWeight="Black" />
 
 
-                    
-                
+
+
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -136,7 +139,7 @@
                 </Grid>
                 <Label Foreground="#f5f5f5" FontWeight="Black" >TODO</Label>
                 <Button Style="{DynamicResource ButtonAdd}" Height="30" Width="200" Foreground="Black" Background="#28a745"  VerticalAlignment="Center"  Click="AddNote" BorderThickness="0" Margin="0,0,0,5">+Add new Task</Button>
-                <ListBox HorizontalContentAlignment="Stretch" Name="NotesListBox" Background="#36393e" BorderThickness="0" Padding="30,0">
+                <ListBox MouseDoubleClick="ShowDetails" HorizontalContentAlignment="Stretch" Name="NotesListBox" Background="#36393e" BorderThickness="0" Padding="30,0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>

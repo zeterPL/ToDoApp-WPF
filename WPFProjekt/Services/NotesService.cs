@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,9 @@ namespace WPFProjekt.Services
 {
     public class NotesService : BaseService<Note>, INoteService
     {
-        public Task<ICollection<Note>> GetNotesByCategoryIdAsync(int categoryId)
+        public async Task<IList<Note>> GetNotesByCategoryIdAsync(int categoryId)
         {
-            throw new NotImplementedException();
+           return await _context.Notes.Where(n => n.CategoryId == categoryId).ToListAsync();
         }
 
         public Task<ICollection<Note>> GetNotesByPriorityAsync(Priority priority)

@@ -11,7 +11,7 @@ namespace WPFProjekt.Services
 {
     public class BaseService<T> : IBaseService<T> where T : class
     {
-        private readonly DBContext _context = new DBContext();
+        protected readonly DBContext _context = new DBContext();
 
         public async Task<T> AddAsync(T entity)
         {

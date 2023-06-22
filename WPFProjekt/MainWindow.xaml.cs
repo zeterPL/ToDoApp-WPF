@@ -31,6 +31,9 @@ namespace WPFProjekt
 
         public ObservableCollection<Category> Categories;
         public ObservableCollection<Note> NotesList { get; set; } = new ObservableCollection<Note>();
+        public Category tmpCategory { get; set; }
+
+        //public string SelectedCategoryName { get; set; } = "All";
 
         public MainWindow()
         {
@@ -38,6 +41,8 @@ namespace WPFProjekt
             
             GetAllNotes();
             GetAllCategories();
+
+            SelectedCategoryTextBlock.Text = "All";
         }
 
 
@@ -87,10 +92,35 @@ namespace WPFProjekt
             GetAllNotes();
         }
 
+        private async void DeleteNoteAsync(Note note)
+        {
+            await _noteService.DeleteAsync(note);
+
+            GetAllNotes();
+        }
+
+        //żeby usunąc notetke trzeba najpierw zaznaczyc element w listboxie a potem nacisnąc przycisk
         private void delNote(object sender, RoutedEventArgs e)
         {
-            this.NotesList.RemoveAt(0);
+            Note note = NotesListBox.SelectedItem as Note;
+
+            NotesList.Remove(note);
+            DeleteNoteAsync(note);
+
             
+            //this.NotesList.RemoveAt(0);
+
+        }
+
+        private async void GetByCategory(object sender, RoutedEventArgs e)
+        {
+            Category category = CategoriesListBox.SelectedItem as Category;
+
+            var tmp = await _noteService.GetNotesByCategoryIdAsync(category.Id);
+            NotesList = new ObservableCollection<Note>(tmp);
+            NotesListBox.ItemsSource = NotesList;
+
+            SelectedCategoryTextBlock.Text = category.Name;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -130,6 +160,27 @@ namespace WPFProjekt
         public void ResetFilters(object sender, RoutedEventArgs e)
         {
             GetAllNotes();
+            SelectedCategoryTextBlock.Text = "All";
+        }
+
+        public void ShowDetails(object sender, RoutedEventArgs e)
+        {
+            Note note = NotesListBox.SelectedItem as Note;
+            GetCategoryById(note.CategoryId);
+
+            EditNoteFormWindow w = new EditNoteFormWindow(note, tmpCategory);
+            w.Owner = this;
+            w.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            w.ShowDialog();
+
+            GetAllNotes();
+
+        }
+
+        private async void GetCategoryById(int id)
+        {
+            tmpCategory = await _categoryService.GetByIdAsync(id);
+            
         }
 
         private void CategoriesBtnClick(object sender, RoutedEventArgs e)
