@@ -53,6 +53,9 @@ namespace WPFProjekt.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDone")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Priority")
                         .HasColumnType("int");
 

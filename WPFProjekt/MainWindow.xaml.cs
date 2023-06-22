@@ -31,6 +31,7 @@ namespace WPFProjekt
 
         public ObservableCollection<Category> Categories;
         public ObservableCollection<Note> NotesList { get; set; } = new ObservableCollection<Note>();
+        public ObservableCollection<Note> DoneNotesList { get; set; } = new ObservableCollection<Note>();
         public Category tmpCategory { get; set; }
 
         //public string SelectedCategoryName { get; set; } = "All";
@@ -50,8 +51,15 @@ namespace WPFProjekt
         public async void GetAllNotes()
         {
             var tmp = await _noteService.GetAllAsync();
-            this.NotesList = new ObservableCollection<Note>(tmp);
+
+            var notes = tmp.Where(n => n.IsDone == false).ToList();
+            this.NotesList = new ObservableCollection<Note>(notes);
             NotesListBox.ItemsSource = NotesList;
+
+            
+            var doneNotes = tmp.Where(n => n.IsDone == true).ToList();
+            DoneNotesList = new ObservableCollection<Note>(doneNotes);
+            DoneNotesListBox.ItemsSource = DoneNotesList;
         }
         private async void GetAllCategories()
         {
@@ -112,11 +120,25 @@ namespace WPFProjekt
 
         }
 
+        private void delNoteDone(object sender, RoutedEventArgs e)
+        {
+            Note note = DoneNotesListBox.SelectedItem as Note;
+
+            NotesList.Remove(note);
+            DeleteNoteAsync(note);
+
+
+            //this.NotesList.RemoveAt(0);
+
+        }
+
         private async void GetByCategory(object sender, RoutedEventArgs e)
         {
             Category category = CategoriesListBox.SelectedItem as Category;
 
             var tmp = await _noteService.GetNotesByCategoryIdAsync(category.Id);
+
+            tmp = tmp.Where(n => n.IsDone == false).ToList();
             NotesList = new ObservableCollection<Note>(tmp);
             NotesListBox.ItemsSource = NotesList;
 
@@ -177,6 +199,20 @@ namespace WPFProjekt
 
         }
 
+        public void ShowDetailsDone(object sender, RoutedEventArgs e)
+        {
+            Note note = DoneNotesListBox.SelectedItem as Note;
+            GetCategoryById(note.CategoryId);
+
+            EditNoteFormWindow w = new EditNoteFormWindow(note, tmpCategory);
+            w.Owner = this;
+            w.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            w.ShowDialog();
+
+            GetAllNotes();
+
+        }
+
         private async void GetCategoryById(int id)
         {
             tmpCategory = await _categoryService.GetByIdAsync(id);
@@ -189,6 +225,38 @@ namespace WPFProjekt
             w.Owner = this;
             w.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             w.ShowDialog();
+
+            GetAllCategories();
+        }
+
+        private async void eNote(Note note)
+        {
+            await _noteService.UpdateAsync(note);
+        }
+
+        private void NoteDone(object sender, RoutedEventArgs e)
+        {
+            Note note = NotesListBox.SelectedItem as Note;
+            note.IsDone = true;
+
+            NotesList.Remove(note);
+            DoneNotesList.Add(note);
+
+            eNote(note);
+
+           // GetAllNotes();
+
+        }
+
+        private void NoteUndone(object sender, RoutedEventArgs e)
+        {
+            Note note = DoneNotesListBox.SelectedItem as Note;
+            note.IsDone = false;
+
+            NotesList.Add(note);
+            DoneNotesList.Remove(note);
+
+            eNote(note);
         }
     }
 

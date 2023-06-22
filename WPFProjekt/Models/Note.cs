@@ -13,6 +13,7 @@ namespace WPFProjekt.Models
         public string Title { get; set; }
         public string Content { get; set; }
         public Priority Priority { get; set; }
+        public bool IsDone { get; set; } = false;
 
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }

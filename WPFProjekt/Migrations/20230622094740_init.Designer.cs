@@ -11,7 +11,7 @@ using WPFProjekt.Data;
 namespace WPFProjekt.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20230608083358_init")]
+    [Migration("20230622094740_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -55,6 +55,9 @@ namespace WPFProjekt.Migrations
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDone")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Priority")
                         .HasColumnType("int");
