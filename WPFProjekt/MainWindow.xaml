@@ -104,7 +104,7 @@
                     <Button Margin="10" Style="{DynamicResource ButtonAdd}"  Height="30" Padding="10 0" Background="#FF5722" Click="PdfExportBtnClick">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Foreground="#fff" Text="Export to PDF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <Image Source="./Resources/icons8-pdf-50.png" Height="20" Width="20" Margin="10 0"/>
+                            <Image Source="{DynamicResource PdfIcon}" Height="20" Width="20" Margin="10 0"/>
                         </StackPanel>
                         
                     </Button>
