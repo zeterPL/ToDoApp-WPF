@@ -315,6 +315,16 @@ namespace WPFProjekt
            
            
         }
+
+
+        private void PdfExportBtnClick(object sender, RoutedEventArgs e)
+        {
+            PdfExportFormWindow w = new PdfExportFormWindow();
+            w.Owner = this;
+            w.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            w.ShowDialog();
+        }
+
     }
 
     
