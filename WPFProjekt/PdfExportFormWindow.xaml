@@ -10,8 +10,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
 
@@ -32,7 +32,7 @@
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox Checked="CategorySelectCB_Checked" Unchecked="CategorySelectCB_Unchecked" x:Name="CategorySelectCB"/>
+                            
                             <TextBlock Text="{Binding Name}"/>
                         </StackPanel>
                     </DataTemplate>
@@ -81,7 +81,38 @@
             
         </Grid>
 
-        <Button Click="GeneratePdf" Grid.Row="3" Margin="8" Content="Export"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                
+                
+            </Grid.ColumnDefinitions>
+
+            
+            <GroupBox Grid.Column="0" Margin="10 8" Header="Select sort mode:">
+                <StackPanel>
+                    <RadioButton x:Name="NoSortRB" Margin="5" IsChecked="True">None</RadioButton>
+                    <RadioButton x:Name="PrioritySortRB" Margin="5">By Priority</RadioButton>
+                    <RadioButton x:Name="TitleSortRB" Margin="5">By Title</RadioButton>
+                </StackPanel>
+            </GroupBox>
+
+
+            <GroupBox Grid.Column="1" Margin="10 8" Header="Print categories titles?">
+                <StackPanel>
+                    <RadioButton x:Name="catTitlePrintRB" IsChecked="True">Yes</RadioButton>
+                    <RadioButton x:Name="NocatTitlePrintRB">No</RadioButton>
+                </StackPanel>
+            </GroupBox>
+
+
+
+        </Grid>
+
+        <Button VerticalAlignment="Bottom" Padding="4" HorizontalAlignment="Right" Click="GeneratePdf" Grid.Row="3" Margin="8" Content="OK" Width="50"/>
 
     </Grid>
 </Window>

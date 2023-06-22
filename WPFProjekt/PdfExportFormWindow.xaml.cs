@@ -17,6 +17,7 @@ using WPFProjekt.Services.Interfaces;
 using WPFProjekt.Services;
 using Microsoft.Win32;
 using IronPdf;
+using static Azure.Core.HttpHeader;
 
 namespace WPFProjekt
 {
@@ -31,7 +32,7 @@ namespace WPFProjekt
 
         public ObservableCollection<Note> NotesList { get; set; } = new ObservableCollection<Note>();
         public ObservableCollection<Category> Categories;
-        public ObservableCollection<Category> CategoriesToPrintList;
+        public ObservableCollection<Category> CategoriesToPrintList = new ObservableCollection<Category>();
 
         public PdfExportFormWindow()
         {
@@ -92,20 +93,53 @@ namespace WPFProjekt
         public async Task<string> getHtml()
         {
             string output = "";
+            string sort = "None";
             if (AllCB.IsChecked == true) CategoriesToPrintList = Categories;
+            else
+            {
+                Category cat = CategoriesComboBox.SelectedItem as Category;
+                CategoriesToPrintList.Add(cat);
+            }
+
+           // CategoriesToPrintList.Add((Category)CategoriesComboBox.SelectedItem);
+
             if (titleCB.IsChecked == true) output += $"<h1>{titleTextBox.Text}</h1>";
             DateTime dt = DateTime.Now;
-            if (DataCB.IsChecked == true) output += "<t/>" + dt;
+            if (DataCB.IsChecked == true) output += dt;
 
-            foreach(Category cat in CategoriesToPrintList)
+            if (PrioritySortRB.IsChecked == true)
+            {               
+                sort = "By Priority";
+            }
+            else if (TitleSortRB.IsChecked == true)
+            {             
+                sort = "By Title";
+            }
+
+            output += $"<br/> Sort: {sort} <br/>";
+
+            foreach (Category cat in CategoriesToPrintList)
             {
-                output += $"<h3 id=\"title\">{cat.Name}</h3>";
+                if (NocatTitlePrintRB.IsChecked == true) output += "<br/>";
+                else output += $"<h3 id=\"title\">{cat.Name}</h3>";
+
                 var notes = NotesList.Where(n => n.CategoryId == cat.Id);
-                foreach(Note note in notes)
+                if(PrioritySortRB.IsChecked==true)
                 {
+                    notes = notes.OrderBy(n => n.Priority);
+                    sort = "By Priority";
+                }
+                else if(TitleSortRB.IsChecked == true)
+                {
+                    notes = notes.OrderBy(n => n.Title);
+                    sort = "By Title";
+                }
+
+                foreach (Note note in notes)
+                {                  
                     output += $"<div> <b>{note.Title}</b> <br/> Priority: {note.Priority} <br/> Content: <br/> {note.Content} </div> <br/>";
-                    if (note.IsDone) output += "<span style=\"color: LightGreen\">Done</span>";
-                    else output += "<span style=\"color: red\">Not done</span>";
+                    if (note.IsDone) output += "<span style=\"color: LightGreen\">Done</span> <br/>";
+                    else output += "<span style=\"color: red\">Not done</span> <br/>";
                 }
             }
             output += "<style>\r\n#title {\r\n\ttext-align: center;\r\n}\r\n</style>";
@@ -128,6 +162,7 @@ namespace WPFProjekt
             }
         }
 
+        /*
         private void CategorySelectCB_Checked(object sender, RoutedEventArgs e)
         {
             Category cat = CategoriesComboBox.SelectedItem as Category;
@@ -153,5 +188,6 @@ namespace WPFProjekt
                 CategoriesToPrintList.Remove(cat);
             }
         }
+        */
     }
 }
