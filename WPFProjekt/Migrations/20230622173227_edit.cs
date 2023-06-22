@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace WPFProjekt.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class edit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,6 +34,8 @@ namespace WPFProjekt.Migrations
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Priority = table.Column<int>(type: "int", nullable: false),
                     IsDone = table.Column<bool>(type: "bit", nullable: false),
+                    createDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    updateDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

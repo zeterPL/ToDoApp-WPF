@@ -14,6 +14,8 @@ namespace WPFProjekt.Models
         public string Content { get; set; }
         public Priority Priority { get; set; }
         public bool IsDone { get; set; } = false;
+        public DateTime createDateTime { get; set; }
+        public DateTime updateDateTime { get; set; }
 
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }

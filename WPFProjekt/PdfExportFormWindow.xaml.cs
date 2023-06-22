@@ -104,8 +104,13 @@ namespace WPFProjekt
            // CategoriesToPrintList.Add((Category)CategoriesComboBox.SelectedItem);
 
             if (titleCB.IsChecked == true) output += $"<h1>{titleTextBox.Text}</h1>";
+
             DateTime dt = DateTime.Now;
             if (DataCB.IsChecked == true) output += dt;
+            else if(DiffDateCB.IsChecked == true) output += DatePicker1.SelectedDate.Value.ToShortDateString();
+
+
+
 
             if (PrioritySortRB.IsChecked == true)
             {               
@@ -120,10 +125,13 @@ namespace WPFProjekt
 
             foreach (Category cat in CategoriesToPrintList)
             {
-                if (NocatTitlePrintRB.IsChecked == true) output += "<br/>";
-                else output += $"<h3 id=\"title\">{cat.Name}</h3>";
 
                 var notes = NotesList.Where(n => n.CategoryId == cat.Id);
+
+                if (NocatTitlePrintRB.IsChecked == true && notes != null) output += "<br/>";
+                else output += $"<h3 id=\"title\">{cat.Name}</h3>";
+
+                
                 if(PrioritySortRB.IsChecked==true)
                 {
                     notes = notes.OrderBy(n => n.Priority);
@@ -136,10 +144,31 @@ namespace WPFProjekt
                 }
 
                 foreach (Note note in notes)
-                {                  
-                    output += $"<div> <b>{note.Title}</b> <br/> Priority: {note.Priority} <br/> Content: <br/> {note.Content} </div> ";
-                    if (note.IsDone) output += "<h5 style=\"color: LightGreen\">Done</h5> <br/>";
-                    else output += "<h5 style=\"color: red\">Not done</h5> <br/>";
+                {            
+                    if(FieldsCB.IsChecked == true)
+                    {
+                        output += "<div>";
+                        if (titleCB.IsChecked == true)
+                            output += $"<b>{note.Title}</b> <br/>";
+                        if (PriorityCB.IsChecked == true)
+                            output += $"Priority: {note.Priority} <br/>";
+                        if (ContentCB.IsChecked == true)
+                            output += $"Content: <br/> {note.Content} <br/>";
+                        if (cdateCB.IsChecked == true)
+                            output += $"Create date: {note.createDateTime} <br/>";
+                        if(edateCB.IsChecked == true)
+                            output += $"Update date: {note.updateDateTime} <br/>";
+                        output += "</div>";
+                    }
+                    else
+                    {
+                        output += $"<div> <b>{note.Title}</b> <br/> Priority: {note.Priority} <br/> Content: <br/> {note.Content} <br/> Create date:" +
+                            $" {note.createDateTime} <br/> Update date: {note.updateDateTime} <br/>  </div> ";
+
+                        if (note.IsDone) output += "<h5 style=\"color: LightGreen\">Done</h5> <br/>";
+                        else output += "<h5 style=\"color: red\">Not done</h5> <br/>";
+                    }
+                    
                 }
             }
             output += "<style>\r\n#title {\r\n\ttext-align: center;\r\n}\r\n</style>";
@@ -160,6 +189,26 @@ namespace WPFProjekt
                 
                 MessageBox.Show("PDF has been saved Successfully!");
             }
+        }
+
+        private void DataCB_Checked(object sender, RoutedEventArgs e)
+        {
+            DiffDateCB.IsChecked = false;
+        }
+
+        private void DataCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DiffDateCB_Checked(object sender, RoutedEventArgs e)
+        {
+            DataCB.IsChecked = false;
+        }
+
+        private void DiffDateCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+
         }
 
         /*

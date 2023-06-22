@@ -79,6 +79,7 @@ namespace WPFProjekt
             Note.Content = content;
             Note.Priority = pr;
             Note.CategoryId = cat.Id;
+            Note.updateDateTime = DateTime.Now;
 
             eNote(Note);
 

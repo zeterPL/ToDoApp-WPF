@@ -72,6 +72,8 @@ namespace WPFProjekt
                     Content = content,
                     Priority = pr,
                     CategoryId = cat.Id,
+                    createDateTime = DateTime.Now,
+                    updateDateTime = DateTime.Now,
                 };
 
                 AddNote(note);
