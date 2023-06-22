@@ -111,9 +111,16 @@ namespace WPFProjekt
         private void delNote(object sender, RoutedEventArgs e)
         {
             Note note = NotesListBox.SelectedItem as Note;
-
-            NotesList.Remove(note);
-            DeleteNoteAsync(note);
+            if(note is null)
+            {
+                MessageBox.Show("Zaznacz notatkę!!");
+            }
+            else
+            {
+                NotesList.Remove(note);
+                DeleteNoteAsync(note);
+            }
+            
 
             
             //this.NotesList.RemoveAt(0);
@@ -124,8 +131,16 @@ namespace WPFProjekt
         {
             Note note = DoneNotesListBox.SelectedItem as Note;
 
-            NotesList.Remove(note);
-            DeleteNoteAsync(note);
+            if (note is null)
+            {
+                MessageBox.Show("Zaznacz notatkę!!");
+            }
+            else
+            {
+                DoneNotesList.Remove(note);
+                DeleteNoteAsync(note);
+            }
+           
 
 
             //this.NotesList.RemoveAt(0);
@@ -135,14 +150,21 @@ namespace WPFProjekt
         private async void GetByCategory(object sender, RoutedEventArgs e)
         {
             Category category = CategoriesListBox.SelectedItem as Category;
+            if(category is null)
+            {
+                MessageBox.Show("Zaznacz kategorie!!");
+            }
+            else
+            {
+                var tmp = await _noteService.GetNotesByCategoryIdAsync(category.Id);
 
-            var tmp = await _noteService.GetNotesByCategoryIdAsync(category.Id);
+                tmp = tmp.Where(n => n.IsDone == false).ToList();
+                NotesList = new ObservableCollection<Note>(tmp);
+                NotesListBox.ItemsSource = NotesList;
 
-            tmp = tmp.Where(n => n.IsDone == false).ToList();
-            NotesList = new ObservableCollection<Note>(tmp);
-            NotesListBox.ItemsSource = NotesList;
-
-            SelectedCategoryTextBlock.Text = category.Name;
+                SelectedCategoryTextBlock.Text = category.Name;
+            }
+            
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -188,28 +210,44 @@ namespace WPFProjekt
         public void ShowDetails(object sender, RoutedEventArgs e)
         {
             Note note = NotesListBox.SelectedItem as Note;
-            GetCategoryById(note.CategoryId);
+            if(note is null)
+            {
+                MessageBox.Show("Zaznacz notatkę!!!");
+            }
+            else
+            {
+                GetCategoryById(note.CategoryId);
 
-            EditNoteFormWindow w = new EditNoteFormWindow(note, tmpCategory);
-            w.Owner = this;
-            w.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            w.ShowDialog();
+                EditNoteFormWindow w = new EditNoteFormWindow(note, tmpCategory);
+                w.Owner = this;
+                w.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                w.ShowDialog();
 
-            GetAllNotes();
+                GetAllNotes();
+            }
+            
 
         }
 
         public void ShowDetailsDone(object sender, RoutedEventArgs e)
         {
             Note note = DoneNotesListBox.SelectedItem as Note;
-            GetCategoryById(note.CategoryId);
+            if(note is null)
+            {
+                MessageBox.Show("Zaznacz notatkę!!!");
+            }
+            else
+            {
+                GetCategoryById(note.CategoryId);
 
-            EditNoteFormWindow w = new EditNoteFormWindow(note, tmpCategory);
-            w.Owner = this;
-            w.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            w.ShowDialog();
+                EditNoteFormWindow w = new EditNoteFormWindow(note, tmpCategory);
+                w.Owner = this;
+                w.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                w.ShowDialog();
 
-            GetAllNotes();
+                GetAllNotes();
+            }
+           
 
         }
 
@@ -221,6 +259,7 @@ namespace WPFProjekt
 
         private void CategoriesBtnClick(object sender, RoutedEventArgs e)
         {
+
             CategoriesWindow w = new CategoriesWindow();
             w.Owner = this;
             w.WindowStartupLocation = WindowStartupLocation.CenterOwner;
@@ -237,12 +276,21 @@ namespace WPFProjekt
         private void NoteDone(object sender, RoutedEventArgs e)
         {
             Note note = NotesListBox.SelectedItem as Note;
-            note.IsDone = true;
+            if(note is null)
+            {
+                MessageBox.Show("Zaznacz notatkę!!!");
+            }
+            else
+            {
+                note.IsDone = true;
 
-            NotesList.Remove(note);
-            DoneNotesList.Add(note);
+                NotesList.Remove(note);
+                DoneNotesList.Add(note);
 
-            eNote(note);
+                eNote(note);
+            }
+
+            
 
            // GetAllNotes();
 
@@ -250,13 +298,22 @@ namespace WPFProjekt
 
         private void NoteUndone(object sender, RoutedEventArgs e)
         {
-            Note note = DoneNotesListBox.SelectedItem as Note;
-            note.IsDone = false;
+            Note note = NotesListBox.SelectedItem as Note;
+            if (note is null)
+            {
+                MessageBox.Show("Zaznacz notatkę!!!");
+            }
+            else
+            {
+                note.IsDone = false;
 
-            NotesList.Add(note);
-            DoneNotesList.Remove(note);
+                NotesList.Add(note);
+                DoneNotesList.Remove(note);
 
-            eNote(note);
+                eNote(note);
+            }
+           
+           
         }
     }
 
