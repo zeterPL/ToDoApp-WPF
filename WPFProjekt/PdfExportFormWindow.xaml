@@ -11,6 +11,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
 
@@ -31,7 +32,7 @@
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox/>
+                            <CheckBox Checked="CategorySelectCB_Checked" Unchecked="CategorySelectCB_Unchecked" x:Name="CategorySelectCB"/>
                             <TextBlock Text="{Binding Name}"/>
                         </StackPanel>
                     </DataTemplate>
@@ -75,10 +76,12 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" VerticalAlignment="Center">Add date</Label>
-                <CheckBox Grid.Column="1" VerticalAlignment="Center"/>
+                <CheckBox Grid.Column="1" VerticalAlignment="Center" x:Name="DataCB"/>
             </Grid>
             
         </Grid>
+
+        <Button Click="GeneratePdf" Grid.Row="3" Margin="8" Content="Export"/>
 
     </Grid>
 </Window>
