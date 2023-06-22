@@ -56,19 +56,30 @@ namespace WPFProjekt
             Category cat = (Category)CatComboBox.SelectedItem;
             Priority pr = (Priority)PrioritySlider.Value;
 
-            
-
-            Note note = new Note
+            if(title == null || title == "")
             {
-                Title = title,
-                Content = content,
-                Priority = pr,
-                CategoryId = cat.Id,
-            };
+                MessageBox.Show("Title cannot be empty!!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if(content == null || content == "")
+            {
+                MessageBox.Show("Description cannot be empty!!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                Note note = new Note
+                {
+                    Title = title,
+                    Content = content,
+                    Priority = pr,
+                    CategoryId = cat.Id,
+                };
 
-            AddNote(note);
+                AddNote(note);
 
-            this.Close();
+                this.Close();
+            }
+
+            
 
         }
     }

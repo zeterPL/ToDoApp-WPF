@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntityFramework.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,12 @@ namespace WPFProjekt.Services
 {
     public class CategoryService : BaseService<Category>, ICategoryService
     {
+        public void DeleteCategoryWithNotesById(Category cat)
+        {
+            var notes = _context.Notes.Where(n => n.CategoryId == cat.Id);
+            _context.Notes.RemoveRange(notes);
+            _context.Categories.Remove(cat);
+            _context.SaveChanges();
+        }
     }
 }

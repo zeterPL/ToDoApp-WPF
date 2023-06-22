@@ -55,7 +55,7 @@
                         </Grid.RowDefinitions>
                         
                         <TextBlock Grid.Column="0" Text= "{Binding Name}" Foreground="#000" HorizontalAlignment="Left"></TextBlock>
-                        <Button Grid.Column="1" HorizontalAlignment="Right">
+                        <Button Grid.Column="1" HorizontalAlignment="Right" Click="delCategory">
                             <Image Height="20" Width="20" Source="./Resources/bin.png" />
                         </Button>
                     </Grid>

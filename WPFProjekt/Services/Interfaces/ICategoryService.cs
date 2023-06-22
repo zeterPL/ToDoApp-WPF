@@ -9,6 +9,6 @@ namespace WPFProjekt.Services.Interfaces
 {
     public interface ICategoryService : IBaseService<Category>
     {
-
+        public void DeleteCategoryWithNotesById(Category cat);
     }
 }

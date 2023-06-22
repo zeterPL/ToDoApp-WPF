@@ -266,6 +266,7 @@ namespace WPFProjekt
             w.ShowDialog();
 
             GetAllCategories();
+            GetAllNotes();
         }
 
         private async void eNote(Note note)

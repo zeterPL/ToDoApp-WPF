@@ -25,6 +25,7 @@ namespace WPFProjekt
     {
 
         private readonly ICategoryService _categoryService = new CategoryService();
+        private readonly INoteService _notesService = new NotesService();
 
         public ObservableCollection<Category> Categories;
 
@@ -55,6 +56,25 @@ namespace WPFProjekt
 
             Categories.Add(cat);
             AddCategory(cat);
+        }
+
+        private void delCategory(object sender, RoutedEventArgs e)
+        {
+            Category cat = CategoriesListBox.SelectedItem as Category;
+            if(cat is null)
+            {
+                MessageBox.Show("Zaznacz kategorie");
+            }
+            else
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure? All related notes will be deleted.", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if(messageBoxResult == MessageBoxResult.Yes)
+                {
+                    _categoryService.DeleteCategoryWithNotesById(cat);
+                    Categories.Remove(cat);
+                }
+                
+            }
         }
     }
 }
