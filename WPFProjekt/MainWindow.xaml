@@ -123,6 +123,7 @@
 
                     <TextBox  x:Name="SearchTextBox" Grid.Column="4" Margin="10,0" Background="#424549" Foreground="#f5f5f5" BorderThickness="0"/>
                     <!--Placeholder-->
+                    
                     <TextBlock Grid.Column="4" IsHitTestVisible="False" Text="Search" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0" Foreground="DarkGray">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
@@ -147,14 +148,27 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="40"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="40"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <CheckBox Checked="NoteDone" Unchecked="NoteUndone" Grid.Column="0" HorizontalAlignment="Left" IsChecked="{Binding IsDone}"></CheckBox>
-                                <TextBlock Grid.Column="1" Text= "{Binding Title}" Foreground="#f5f5f5" HorizontalAlignment="Center"></TextBlock>
-                                <Button Grid.Column="2" HorizontalAlignment="Right" Background="#df4554" Foreground="#343a40" Click="delNote">
+                                <TextBlock Grid.Column="1" Text= "{Binding Title}" HorizontalAlignment="Center" Foreground="#f5f5f5" ></TextBlock>
+
+                                <Border 
+                                    x:Name="PriorityCircle"
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Right"
+                                    CornerRadius="50"
+                                    Width="20"
+                                    Height="20"                                         
+                                    Background="{Binding Priority, Converter={StaticResource PriorityColorPicker}}"
+                                    BorderBrush="Black"
+                                    BorderThickness="1"/>
+
+                                <Button Grid.Column="3" HorizontalAlignment="Right" Background="#df4554" Foreground="#343a40" Click="delNote">
                                     <Image Height="20" Width="20" Source="./Resources/bin.png" />
                                 </Button>
                             </Grid>

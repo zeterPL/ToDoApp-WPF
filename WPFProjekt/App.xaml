@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:WPFProjekt"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <local:PriorityColorPicker x:Key="PriorityColorPicker"/>
     </Application.Resources>
 </Application>

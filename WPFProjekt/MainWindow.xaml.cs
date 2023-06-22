@@ -298,7 +298,7 @@ namespace WPFProjekt
 
         private void NoteUndone(object sender, RoutedEventArgs e)
         {
-            Note note = NotesListBox.SelectedItem as Note;
+            Note note = DoneNotesListBox.SelectedItem as Note;
             if (note is null)
             {
                 MessageBox.Show("Zaznacz notatkę!!!");
