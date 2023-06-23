@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPFProjekt"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="ToDo!"  Icon="./Resources/icon.ico" Height="700" Width="800">
+        Title="ToDo!"  Icon="./Resources/icon.ico" Height="600" Width="900">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -69,14 +69,23 @@
     
     
     <!-- KOD APLIKACJI PONIZEJ -->
-    <StackPanel Background="#36393e">
-        <Grid>
+
+    <Grid Background="#36393e">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel>
-                <Button Height="30" Style="{DynamicResource ButtonAdd}" Click="CategoriesBtnClick" Margin="10" Grid.Column="1" Background="#28a745" >Manage categories</Button>
+            
+            
+            <StackPanel Background="#282b30">
+            <Button Margin="10,10,10,0" Style="{DynamicResource ButtonAdd}"  Height="40" Padding="10 0" Background="#E05577" Click="PdfExportBtnClick">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="Black" Text="Export to PDF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Image Source="/Resources/icons8-pdf-50.png" Height="20" Width="20" Margin="10 0"/>
+                    </StackPanel>
+
+                </Button>
+            <Button Height="40" Style="{DynamicResource ButtonAdd}" Click="CategoriesBtnClick" Margin="10" Grid.Column="1" Background="#66D976" >Manage categories</Button>
                 <ListBox HorizontalContentAlignment="Stretch" Name="CategoriesListBox" Background="#36393e" BorderThickness="0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -90,25 +99,20 @@
                                 </Grid.RowDefinitions>
 
                                 <TextBlock Grid.Column="0" Text= "{Binding Name}" Foreground="#f5f5f5" HorizontalAlignment="Left"></TextBlock>
-                                <Button Grid.Column="1" Click="GetByCategory">Show</Button>
+                            <Button Style="{DynamicResource ButtonAdd}" Grid.Column="1" Click="GetByCategory" Background="#7289da">Show</Button>
                                 
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </StackPanel>
-            <StackPanel Grid.Column="1">
+        
+        <StackPanel Grid.Column="1" Background="#36393e">
 
                 
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
-                    <Button Margin="10" Style="{DynamicResource ButtonAdd}"  Height="30" Padding="10 0" Background="#FF5722" Click="PdfExportBtnClick">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Foreground="#fff" Text="Export to PDF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <Image Source="/Resources/icons8-pdf-50.png" Height="20" Width="20" Margin="10 0"/>
-                        </StackPanel>
-                        
-                    </Button>
-                    <TextBlock x:Name="SelectedCategoryTextBlock" FontSize="20" Margin="5" Foreground="#f5f5f5"  FontWeight="Black" />
+                    
+                    <TextBlock x:Name="SelectedCategoryTextBlock" FontSize="25" Margin="5" Foreground="#f5f5f5"  FontWeight="Black" />
                 </StackPanel>
            
                 <Grid>
@@ -121,10 +125,10 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
-                   
-                    <Label  Grid.Column="0" Foreground="#f5f5f5">Sort by:</Label>
-                    <Button Height="30" Style="{DynamicResource ButtonAdd}" Grid.Column="1" Margin="10,0" Click="SortByPriority" Background="#424549" Foreground="#f5f5f5" >Priority</Button>
-                    <Button Height="30" Style="{DynamicResource ButtonAdd}" Grid.Column="2" Margin="10,0" Click="SortByTitle"  Background="#424549" Foreground="#f5f5f5">A-Z</Button>
+                    
+                    <Label  Grid.Column="0" Foreground="#f5f5f5" VerticalAlignment="Center">Sort by:</Label>
+                    <Button Height="40" Style="{DynamicResource ButtonAdd}" Grid.Column="1" Margin="10,0" Click="SortByPriority" Background="#424549" Foreground="#f5f5f5" >Priority</Button>
+                    <Button Height="40" Style="{DynamicResource ButtonAdd}" Grid.Column="2" Margin="10,0" Click="SortByTitle"  Background="#424549" Foreground="#f5f5f5">A-Z</Button>
                     <Button  Style="{DynamicResource ButtonAdd}" Grid.Column="3" Margin="10,0" Click="ResetFilters"  Background="#424549" Foreground="#f5f5f5">Reset filters</Button>
 
                     <TextBox  x:Name="SearchTextBox" Grid.Column="4" Margin="10,0" Background="#424549" Foreground="#f5f5f5" BorderThickness="0"/>
@@ -143,11 +147,12 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <Button Height="30"  Style="{DynamicResource ButtonAdd}" Grid.Column="5" Margin="5,0,10,0" Click="SearchButtonClick"  Background="#fee75c" Foreground="#1e2124">Search</Button>
+                <Button Height="40"  Style="{DynamicResource ButtonAdd}" Grid.Column="5" Margin="5,0,10,0" Click="SearchButtonClick"  Background="#7289da" Foreground="#1e2124">Search</Button>
                 </Grid>
+            <StackPanel >
                 <Label Foreground="#f5f5f5" FontWeight="Black" >TODO</Label>
-                <Button Style="{DynamicResource ButtonAdd}" Height="30" Width="200" Foreground="Black" Background="#28a745"  VerticalAlignment="Center"  Click="AddNote" BorderThickness="0" Margin="0,0,0,5">+Add new Task</Button>
-                <ListBox MouseDoubleClick="ShowDetails" HorizontalContentAlignment="Stretch" Name="NotesListBox" Background="#36393e" BorderThickness="0" Padding="30,0">
+                <Button Style="{DynamicResource ButtonAdd}" Height="40" Width="120" Foreground="Black" Background="#66D976"  VerticalAlignment="Center"  Click="AddNote" BorderThickness="0" Margin="0,0,0,5">+Add new Task</Button>
+                <ListBox MouseDoubleClick="ShowDetails" HorizontalContentAlignment="Stretch" Name="NotesListBox" Background="#424549" BorderThickness="0" Padding="30,0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -177,12 +182,13 @@
                                 <Button Grid.Column="3" HorizontalAlignment="Right" Background="#df4554" Foreground="#343a40" Click="delNote">
                                     <Image Height="20" Width="20" Source="./Resources/bin.png" />
                                 </Button>
+                                
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <Label Foreground="#f5f5f5" FontWeight="Black">DONE</Label>
-                <ListBox MouseDoubleClick="ShowDetailsDone" HorizontalContentAlignment="Stretch" Name="DoneNotesListBox" Background="#36393e" BorderThickness="0" Padding="30,0">
+                <ListBox MouseDoubleClick="ShowDetailsDone" HorizontalContentAlignment="Stretch" Name="DoneNotesListBox" Background="#424549" BorderThickness="0" Padding="30,0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -204,11 +210,12 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </StackPanel>
+            </StackPanel>
         </Grid>
        
         
         
         
-    </StackPanel>
+   
     
 </Window>
