@@ -144,20 +144,22 @@ namespace WPFProjekt
                 }
 
                 foreach (Note note in notes)
-                {            
-                    if(FieldsCB.IsChecked == true)
+                {
+                    
+                    if (FieldsCB.IsChecked == true)
                     {
                         output += "<div>";
+                        output += "<span style='font-size:20px;'> &#9634;</span> &nbsp;";
                         if (titleCB.IsChecked == true)
-                            output += $"<b>{note.Title}</b> <br/>";
+                            output += $"<b>{note.Title}</b> &nbsp;";
                         if (PriorityCB.IsChecked == true)
-                            output += $"Priority: {note.Priority} <br/>";
+                            output += $"Priority: {note.Priority} &nbsp;";
                         if (ContentCB.IsChecked == true)
-                            output += $"Content: <br/> {note.Content} <br/>";
+                            output += $"Content: {note.Content} &nbsp;";
                         if (cdateCB.IsChecked == true)
-                            output += $"Create date: {note.createDateTime} <br/>";
+                            output += $"Create date: {note.createDateTime} &nbsp;";
                         if(edateCB.IsChecked == true)
-                            output += $"Update date: {note.updateDateTime} <br/>";
+                            output += $"Update date: {note.updateDateTime} &nbsp;";
                         output += "</div>";
                     }
                     else
