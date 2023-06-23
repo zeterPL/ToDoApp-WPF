@@ -76,5 +76,10 @@ namespace WPFProjekt
                 
             }
         }
+
+        private void CategoriesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

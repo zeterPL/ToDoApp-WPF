@@ -5,7 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFProjekt"
         mc:Ignorable="d"
-        Title="PDF Export" Height="450" Width="550">
+        Title="ToDo!"  Icon="./Resources/icon.ico" Height="450" Width="600" Background="#282b30" >
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Foreground" Color="#FF838383"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="ButtonAdd" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.MouseOver.Foreground}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -16,17 +77,17 @@
         </Grid.RowDefinitions>
 
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="0">Select categories</Label>
+            <Label Grid.Column="0"  Foreground="#f5f5f5">Select categories</Label>
             <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="15 0">
                 <CheckBox Checked="AllCB_Checked" Unchecked="AllCB_Unchecked" x:Name="AllCB" VerticalAlignment="Center"/>
-                <Label>All</Label>
+                <Label  Foreground="#f5f5f5">All</Label>
             </StackPanel>
 
             <ComboBox x:Name="CategoriesComboBox" Grid.Column="2" Margin="10 0">
@@ -47,17 +108,17 @@
                 
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" Margin="0 10">
+            <Grid Grid.Column="0" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0">Add title</Label>
+                <Label Grid.Column="0"  Foreground="#f5f5f5">Add title</Label>
                 <CheckBox x:Name="titleCB" Grid.Column="1" VerticalAlignment="Center"/>
-                
-                <TextBox x:Name="titleTextBox" Grid.Column="2" Margin="10 0" IsEnabled="{Binding ElementName=titleCB, Path=IsChecked}"></TextBox>
+
+                <TextBox x:Name="titleTextBox" Grid.Column="2" Margin="10 0" IsEnabled="{Binding ElementName=titleCB, Path=IsChecked}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></TextBox>
                 <TextBlock Grid.Column="2" IsHitTestVisible="False" Text="Title" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0" Foreground="DarkGray">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
@@ -76,7 +137,7 @@
             
         </Grid>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -84,7 +145,7 @@
             </Grid.ColumnDefinitions>
             
             <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <Label  VerticalAlignment="Center">Add current date</Label>
+                <Label  VerticalAlignment="Center"  Foreground="#f5f5f5">Add current date</Label>
                 <CheckBox Checked="DataCB_Checked" Unchecked="DataCB_Unchecked" VerticalAlignment="Center" x:Name="DataCB"/>
             </StackPanel>
             
@@ -92,7 +153,7 @@
                 <GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Checked="DiffDateCB_Checked" Unchecked="DiffDateCB_Unchecked" x:Name="DiffDateCB"/>
-                        <TextBlock>Inna data</TextBlock>
+                        <TextBlock  Foreground="#f5f5f5">Other date</TextBlock>
                     </StackPanel>
                 </GroupBox.Header>
 
@@ -100,27 +161,27 @@
             </GroupBox>
         </Grid>
 
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="3" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            
-            <GroupBox Grid.Column="0" Margin="10 8" Header="Select sort mode:">
+
+            <GroupBox Grid.Column="0" Margin="10 8" Header="Select sort mode:"  Foreground="#f5f5f5">
                 <StackPanel>
-                    <RadioButton x:Name="NoSortRB" Margin="5" IsChecked="True">None</RadioButton>
-                    <RadioButton x:Name="PrioritySortRB" Margin="5">By Priority</RadioButton>
-                    <RadioButton x:Name="TitleSortRB" Margin="5">By Title</RadioButton>
+                    <RadioButton x:Name="NoSortRB" Margin="5" IsChecked="True"  Foreground="#f5f5f5">None</RadioButton>
+                    <RadioButton x:Name="PrioritySortRB" Margin="5"  Foreground="#f5f5f5">By Priority</RadioButton>
+                    <RadioButton x:Name="TitleSortRB" Margin="5"  Foreground="#f5f5f5">By Title</RadioButton>
                 </StackPanel>
             </GroupBox>
 
 
-            <GroupBox Grid.Column="1" Margin="10 8" Header="Print categories titles?">
+            <GroupBox Grid.Column="1" Margin="10 8" Header="Print categories titles?" Foreground="#f5f5f5">
                 <StackPanel>
-                    <RadioButton x:Name="catTitlePrintRB" IsChecked="True">Yes</RadioButton>
-                    <RadioButton x:Name="NocatTitlePrintRB">No</RadioButton>
+                    <RadioButton x:Name="catTitlePrintRB" IsChecked="True "  Foreground="#f5f5f5">Yes</RadioButton>
+                    <RadioButton x:Name="NocatTitlePrintRB" Foreground="#f5f5f5">No</RadioButton>
                 </StackPanel>
             </GroupBox>
 
@@ -128,15 +189,15 @@
                 <GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox x:Name="FieldsCB"/>
-                        <TextBlock>Select note fields to print</TextBlock>
+                        <TextBlock  Foreground="#f5f5f5">Select note fields to print</TextBlock>
                     </StackPanel>
                 </GroupBox.Header>
                 <StackPanel IsEnabled="{Binding ElementName=FieldsCB, Path=IsChecked}">
-                    <CheckBox x:Name="TitleCB">Title</CheckBox>
-                    <CheckBox x:Name="ContentCB">Content</CheckBox>
-                    <CheckBox x:Name="PriorityCB">Priority</CheckBox>
-                    <CheckBox x:Name="cdateCB">Create Date</CheckBox>
-                    <CheckBox x:Name="edateCB">Edit Date</CheckBox>
+                    <CheckBox x:Name="TitleCB"  Foreground="#f5f5f5">Title</CheckBox>
+                    <CheckBox x:Name="ContentCB"  Foreground="#f5f5f5">Content</CheckBox>
+                    <CheckBox x:Name="PriorityCB"  Foreground="#f5f5f5">Priority</CheckBox>
+                    <CheckBox x:Name="cdateCB"  Foreground="#f5f5f5">Create Date</CheckBox>
+                    <CheckBox x:Name="edateCB"  Foreground="#f5f5f5">Edit Date</CheckBox>
                 </StackPanel>
             </GroupBox>
 
@@ -144,7 +205,7 @@
 
         </Grid>
 
-        <Button VerticalAlignment="Bottom" Padding="4" HorizontalAlignment="Right" Click="GeneratePdf" Grid.Row="4" Margin="8" Content="OK" Width="50"/>
+        <Button Style="{DynamicResource ButtonAdd}" VerticalAlignment="Bottom" Padding="4" HorizontalAlignment="Right" Click="GeneratePdf" Grid.Row="4" Margin="10" Content="OK" Width="60" Background="#66D976"/>
 
     </Grid>
 </Window>
